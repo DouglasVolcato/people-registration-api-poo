@@ -1,7 +1,8 @@
-import { Person } from "../../../database/protocols/person-interface";
+import { Person } from "../../../protocols/person-interface";
+import { PersonWithoutID } from "../../../protocols/person-without-id-interface";
 
 export interface CreatePersonInterface {
-  execute(body: Person): Person;
+  execute(body: PersonWithoutID): Person;
 }
 
 export interface DeletePersonInterface {
@@ -17,7 +18,7 @@ export interface GetPersonInterface {
 }
 
 export interface UpdatePersonInterface {
-  execute(id: string, body: Person): Person;
+  execute(id: string, body: PersonWithoutID): Person;
 }
 
 export interface PersonServicesInterface {
