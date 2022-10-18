@@ -1,9 +1,10 @@
 import { PersonController } from "../controllers/person-controller";
 import { PeopleRepository } from "../database/repository/people-repository";
 import { PersonRoutes } from "../routes/person-routes";
+import { Router } from "express";
 import * as services from "../services/person";
 
-export function makePersonFactory(router: any) {
+export function makePersonFactory(router: Router): PersonRoutes {
   const peopleRepository = new PeopleRepository();
 
   const createPersonUseCase = new services.CreatePersonUseCase(
