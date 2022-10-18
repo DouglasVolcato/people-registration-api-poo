@@ -1,18 +1,19 @@
 import { HttpResponse } from "../protocols/http";
 import { Person } from "../protocols/person-interface";
+import { HttpHelpersInterface } from "./protocols/http-helper-interface";
 
-export class HttpHelpers {
-  static badRequest(error: Error): HttpResponse {
+export const HttpHelpers: HttpHelpersInterface = {
+  badRequest(error: Error): HttpResponse {
     return {
       statusCode: 400,
       body: error,
     };
-  }
+  },
 
-  static ok(data: Person | Person[]): HttpResponse {
+  ok(data: Person | Person[]): HttpResponse {
     return {
       statusCode: 200,
       body: data,
     };
-  }
-}
+  },
+};

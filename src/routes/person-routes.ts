@@ -1,8 +1,9 @@
 import { Request, Response, Router } from "express";
 import { PersonControllerInterface } from "../controllers/protocols/person-controllers-interface";
 import { makeHttpRequest } from "../helpers/httpRequestFactory";
+import { PersonRoutesInterface } from "./protocols/person-routes-interface";
 
-export class PersonRoutes {
+export class PersonRoutes implements PersonRoutesInterface {
   personController: PersonControllerInterface;
   router: Router;
 
