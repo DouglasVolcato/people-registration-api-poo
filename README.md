@@ -1,4 +1,4 @@
-# poo-person-api
+# people-registration-api-poo
 
 ## How to initialize this project?
 
