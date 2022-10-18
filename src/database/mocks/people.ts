@@ -1,4 +1,4 @@
-import { Person } from "../protocols/person-interface";
+import { Person } from "../../protocols/person-interface";
 
 export const people: Person[] = [
   {

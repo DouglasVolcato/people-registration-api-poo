@@ -1,5 +1,5 @@
-import { Person } from "../../database/protocols/person-interface";
-import { PersonRepositoryInterface } from "../../database/protocols/person-repository-interface";
+import { Person } from "../../protocols/person-interface";
+import { PersonRepositoryInterface } from "../../database/repository/protocols/person-repository-interface";
 import { DeletePersonInterface } from "./protocols/person-services-interface";
 
 export class DeletePersonUseCase implements DeletePersonInterface {
