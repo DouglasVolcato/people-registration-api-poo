@@ -1,6 +1,6 @@
 import { people } from "../mocks/people";
-import { Person } from "../protocols/person-interface";
-import { PersonRepositoryInterface } from "../protocols/person-repository-interface";
+import { Person } from "../../protocols/person-interface";
+import { PersonRepositoryInterface } from "./protocols/person-repository-interface";
 
 export class PeopleRepository implements PersonRepositoryInterface {
   create(body: Person): Person {
@@ -25,7 +25,7 @@ export class PeopleRepository implements PersonRepositoryInterface {
 
   get(id: string): Person {
     const foundPerson: Person[] = [];
-    people.map((obj, index) => {
+    people.map((obj) => {
       if (obj.id === id) {
         foundPerson.push(obj);
       }
