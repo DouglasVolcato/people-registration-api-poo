@@ -1,7 +1,9 @@
-import { Person } from "../database/protocols/person-interface";
 import { PersonServicesInterface } from "../services/person/protocols/person-services-interface";
-import { PersonControllerInterface } from "./protocols/controller-interface";
-import { Request, Response } from "express";
+import { PersonControllerInterface } from "./protocols/person-controllers-interface";
+import { PersonWithoutID } from "../protocols/person-without-id-interface";
+import { HttpRequest, HttpResponse } from "../protocols/http";
+import { HttpHelpers } from "../helpers/http-helper";
+import { MissingParamError } from "../helpers/errors/MissingParam-error";
 
 export class PersonController implements PersonControllerInterface {
   personServices: PersonServicesInterface;
@@ -10,28 +12,51 @@ export class PersonController implements PersonControllerInterface {
     this.personServices = personServices;
   }
 
-  create(req: Request, res: Response): Response {
-    const body: Person = req.body;
-    res.send(this.personServices.createPersonUseCase.execute(body));
+  create(httpRequest: HttpRequest): HttpResponse {
+    try {
+      const body: PersonWithoutID = httpRequest.body;
+      const data = this.personServices.createPersonUseCase.execute(body);
+      return HttpHelpers.ok(data);
+    } catch (error) {
+      return HttpHelpers.badRequest(error);
+    }
   }
 
-  delete(req: Request, res: Response): Response {
-    const id: string = req.params.id;
-    res.send(this.personServices.deletePersonUseCase.execute(id));
+  delete(httpRequest: HttpRequest): HttpResponse {
+    const id: string | undefined = httpRequest.id;
+    if (id) {
+      const data = this.personServices.deletePersonUseCase.execute(id);
+      return HttpHelpers.ok(data);
+    } else {
+      return HttpHelpers.badRequest(new MissingParamError("id"));
+    }
   }
 
-  get(req: Request, res: Response): Response {
-    const id: string = req.params.id;
-    res.send(this.personServices.getPersonUseCase.execute(id));
+  get(httpRequest: HttpRequest): HttpResponse {
+    const id: string | undefined = httpRequest.id;
+    if (id) {
+      const data = this.personServices.getPersonUseCase.execute(id);
+      return HttpHelpers.ok(data);
+    }
+    return HttpHelpers.badRequest(new MissingParamError("id"));
   }
 
-  getAll(req: Request, res: Response): Response {
-    res.send(this.personServices.getAllPersonUseCase.execute());
+  getAll(httpRequest: HttpRequest): HttpResponse {
+    const data = this.personServices.getAllPersonUseCase.execute();
+    return HttpHelpers.ok(data);
   }
 
-  update(req: Request, res: Response): Response {
-    const id: string = req.params.id;
-    const body: Person = req.body;
-    res.send(this.personServices.updatePersonUseCase.execute(id, body));
+  update(httpRequest: HttpRequest): HttpResponse {
+    try {
+      const id: string | undefined = httpRequest.id;
+      if (id) {
+        const body: PersonWithoutID = httpRequest.body;
+        const data = this.personServices.updatePersonUseCase.execute(id, body);
+        return HttpHelpers.ok(data);
+      }
+      return HttpHelpers.badRequest(new MissingParamError("id"));
+    } catch (error) {
+      return HttpHelpers.badRequest(error);
+    }
   }
 }
