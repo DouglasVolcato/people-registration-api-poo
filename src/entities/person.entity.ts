@@ -1,12 +1,11 @@
 import { PersonWithoutID } from "../protocols/person-without-id-interface";
 import { Person } from "../protocols/person-interface";
 import { v4 as uuid } from "uuid";
-import { MissingParamError } from "../helpers/errors/MissingParam-error";
+import { MissingParamError } from "../helpers/errors/missingParam-error";
 import { PersonEntityInterface } from "./protocols/person.entity.interface";
 
 export class PersonEntity implements PersonEntityInterface {
   body: PersonWithoutID;
-  id: string;
 
   constructor(body: PersonWithoutID) {
     this.body = body;

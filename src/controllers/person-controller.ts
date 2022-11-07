@@ -3,7 +3,7 @@ import { PersonControllerInterface } from "./protocols/person-controllers-interf
 import { PersonWithoutID } from "../protocols/person-without-id-interface";
 import { HttpRequest, HttpResponse } from "../protocols/http";
 import { HttpHelpers } from "../helpers/http-helper";
-import { MissingParamError } from "../helpers/errors/MissingParam-error";
+import { MissingParamError } from "../helpers/errors/missingParam-error";
 
 export class PersonController implements PersonControllerInterface {
   personServices: PersonServicesInterface;
